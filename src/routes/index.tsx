@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Activity, Bell, Boxes, ChevronRight, CircleDollarSign, Clock3, Download,
-  FileBox, Gauge, HardDrive, Layers3, LayoutDashboard, Library, Menu,
+  FileBox, Gauge, Layers3, LayoutDashboard, Library, Menu,
   MoreHorizontal, Pause, Play, Plus, Printer, Search, Settings2, ShieldCheck,
   Wifi, Zap,
 } from "lucide-react";
