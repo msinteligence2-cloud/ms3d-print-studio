@@ -15,6 +15,13 @@
       "when": 1793945021862,
       "tag": "0001_ms3d_workshop_portal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793945043774,
+      "tag": "0002_ms3d_storage_policies",
+      "breakpoints": true
     }
   ]
 }

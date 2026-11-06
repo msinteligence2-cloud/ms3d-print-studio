@@ -1330,6 +1330,7 @@ export type Database = {
         Args: { _from: string; _to: string }
         Returns: boolean
       }
+      safe_ws_from_path: { Args: { _name: string }; Returns: string }
       set_customer_suspended: {
         Args: {
           _reason?: string
