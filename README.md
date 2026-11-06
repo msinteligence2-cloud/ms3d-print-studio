@@ -8,25 +8,26 @@ Plataforma de gestão de impressão 3D para oficinas e print farms: painel web, 
 - **Biblioteca local** em `/biblioteca`: importa, lista, baixa e exclui arquivos STL, 3MF, OBJ, STEP e STP no IndexedDB do navegador atual. Limite: 250 MB por arquivo.
 - **Calculadora de custos** em `/calculadora`: filamento, energia estimada pela potência configurada, custo de máquina por hora e desperdício.
 - Contratos TypeScript para adaptadores de impressora e provedor de demonstração sem comunicação com hardware.
-- Funções de domínio e testes para cálculo de custo e datas/entitlements de licença.
+- Infraestrutura local inicial com PostgreSQL via Docker Compose, migration SQL e contratos de API tipados.
 - GitHub Actions para lint, testes e build.
 
 ## O que ainda não está pronto
 
-Autenticação e banco de dados, sincronização e armazenamento em nuvem, miniaturas 3D, integração Bambu LAN real, controle de impressão, catálogo externo de projetos, pagamentos, geração/ativação de chaves no servidor, painel administrativo e instalador Windows. O diretório `desktop/` documenta a arquitetura futura; ainda não contém um instalador executável.
+Autenticação e sessões, handlers de API de produção, conexão e camada de repositório do banco, sincronização e armazenamento em nuvem, miniaturas 3D, integração Bambu LAN real, controle de impressão, catálogo externo de projetos, pagamentos, geração/ativação de chaves no servidor, painel administrativo e instalador Windows.
 
-A energia da calculadora é uma **estimativa**, não uma leitura do consumo real. Os dados exibidos no dashboard são ilustrativos.
+A energia da calculadora é uma **estimativa**, não uma leitura do consumo real. Os dados exibidos no dashboard são ilustrativos. A infraestrutura em `infra/` é para desenvolvimento local; nenhum serviço de produção foi implantado.
 
 ## Documentação
 
 - [Especificação do produto](docs/PRODUCT_SPEC.md)
 - [Arquitetura técnica](docs/TECHNICAL_ARCHITECTURE.md)
 - [Status de implementação](docs/IMPLEMENTATION_STATUS.md)
+- [Infraestrutura local](infra/README.md)
 - [Arquitetura do aplicativo Windows](desktop/README.md)
 
 ## Desenvolvimento
 
-Requisitos: Bun e Node.js compatível com as dependências do projeto.
+Requisitos: Bun e Node.js compatível com as dependências do projeto. Para banco local, Docker Desktop.
 
 ```bash
 bun install
@@ -34,6 +35,7 @@ bun run dev
 bun run lint
 bun run test
 bun run build
+docker compose up -d postgres
 ```
 
 ## Segurança

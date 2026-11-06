@@ -9,11 +9,15 @@
 - License term helpers for 1, 3, 6 and 12 months.
 - Bambu model registry: A1 Mini, A1, P1P/P1S, X1/X1 Carbon/X1E, P2S, H2D/H2D Pro/H2S/H2C and X2D.
 - Typed LAN transport boundary for the Windows companion; unknown models fail closed.
+- Local infrastructure scaffold: PostgreSQL Compose service, initial relational migration, environment template, and Zod API contracts.
+- Contract tests for API health, pagination, printer connection identifiers and telemetry provenance.
 - A1 Mini is the first hardware reference target; print-control capabilities remain disabled until physical qualification.
-- Unit tests for costs, local file validation, license dates and Bambu model capability defaults.
+- GitHub Actions CI for lint, tests and build.
 
 ## Not yet implemented / requires infrastructure or validation
-- Authentication, database, cloud file storage, API deployment and sync.
+- Authentication/session provider and production API handlers.
+- Database connection pool, migration runner and repository layer (the SQL schema is a local bootstrap only).
+- Cloud object storage, signed file transfer, quotas and sync.
 - Cloud sync and 3D previews/thumbnails.
 - Concrete Bambu SSDP discovery, MQTT/TLS and FTPS transport, camera, uploads and print controls.
 - Windows Credential Manager/DPAPI and companion runtime.
