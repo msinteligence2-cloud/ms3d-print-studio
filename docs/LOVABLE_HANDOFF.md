@@ -77,3 +77,13 @@ Use este repositório como fonte do produto **MS 3D Studio**. Preserve a identid
 ## Estado conhecido
 
 A base atual tem dashboard demonstrativo, biblioteca local IndexedDB, calculadora e contratos/catálogo Bambu. Não possui ainda backend completo, autenticação, sincronização cloud, integração Bambu LAN física, pagamento ou instalador Windows. Esta pasta é um roteiro de integração, não uma declaração de que esses serviços já estão implantados.
+
+
+## Acesso de usuários e painel administrativo
+
+Consulte também:
+- `docs/LOVABLE_BACKEND_ACCESS_LICENSES.md` — modelo de contas, papéis, licenças e backend.
+- `docs/ACCESS_ADMIN_RELEASE_READINESS.md` — hardening de RLS, provisionamento seguro do primeiro administrador e checklist de publicação.
+- `supabase/migrations/20261106000200_ms3d_access_control_hardening.sql` — migration complementar que deve ser aplicada após a migration `20261106000100`.
+
+A migration complementar bloqueia escrita direta de memberships pelo navegador, cria a tabela privada `platform_admins` e o RPC de criação de workspace. Isso é uma fundação de segurança do banco, não substitui as Edge Functions de administração, convite e licenciamento nem as telas de autenticação/admin. Implemente e teste esses componentes antes de publicar.
