@@ -1,19 +1,32 @@
 # MS3DPRINTING
 
-A cross-platform 3D-print production platform: Windows desktop control center plus a synchronized web workspace for printer monitoring, project library, material and energy costing, production analytics, and subscription licensing.
+Plataforma de gestão de impressão 3D para oficinas e print farms: painel web, biblioteca de projetos, estimativa de custos e futura integração local com impressoras Bambu Lab.
 
-## Product direction
-Bambu Lab printers are the first integration target. The Windows desktop client will provide local printer connectivity and device workflows; the web client will provide account, library, reporting, subscription, and administration features.
+## Funcionalidades já disponíveis no código
 
-See:
-- [Product specification](docs/PRODUCT_SPEC.md)
-- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
+- Dashboard inicial responsivo em português (os números de frota, fila e custos ainda são dados de demonstração).
+- **Biblioteca local** em `/biblioteca`: importa, lista, baixa e exclui arquivos STL, 3MF, OBJ, STEP e STP no IndexedDB do navegador atual. Limite: 250 MB por arquivo.
+- **Calculadora de custos** em `/calculadora`: filamento, energia estimada pela potência configurada, custo de máquina por hora e desperdício.
+- Contratos TypeScript para adaptadores de impressora e provedor de demonstração sem comunicação com hardware.
+- Funções de domínio e testes para cálculo de custo e datas/entitlements de licença.
+- GitHub Actions para lint, testes e build.
 
-## Current application
-The repository currently contains the initial React 19 + TanStack Start starter. Product modules and device integrations are being developed in milestones. Printer control, payments, MakerWorld downloads, and licensing must not be treated as production-ready until implemented and tested against real services/devices.
+## O que ainda não está pronto
 
-## Development
-Requirements: Node.js and Bun (the repository includes bun.lock).
+Autenticação e banco de dados, sincronização e armazenamento em nuvem, miniaturas 3D, integração Bambu LAN real, controle de impressão, catálogo externo de projetos, pagamentos, geração/ativação de chaves no servidor, painel administrativo e instalador Windows. O diretório `desktop/` documenta a arquitetura futura; ainda não contém um instalador executável.
+
+A energia da calculadora é uma **estimativa**, não uma leitura do consumo real. Os dados exibidos no dashboard são ilustrativos.
+
+## Documentação
+
+- [Especificação do produto](docs/PRODUCT_SPEC.md)
+- [Arquitetura técnica](docs/TECHNICAL_ARCHITECTURE.md)
+- [Status de implementação](docs/IMPLEMENTATION_STATUS.md)
+- [Arquitetura do aplicativo Windows](desktop/README.md)
+
+## Desenvolvimento
+
+Requisitos: Bun e Node.js compatível com as dependências do projeto.
 
 ```bash
 bun install
@@ -23,5 +36,6 @@ bun run test
 bun run build
 ```
 
-## Security
-Never commit secrets, printer access codes, API credentials, certificates, payment keys, or .env files. Use environment variables locally and a managed secret store in deployment.
+## Segurança
+
+Nunca versione senhas, tokens, códigos de acesso de impressoras, certificados ou segredos de pagamento. Credenciais de impressora devem ficar no cofre seguro do sistema operacional Windows. Não habilite controle de hardware sem qualificar modelo, firmware e permissões da impressora.
