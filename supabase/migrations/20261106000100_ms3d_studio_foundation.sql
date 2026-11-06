@@ -26,6 +26,22 @@ create table if not exists public.workspace_members (
   created_at timestamptz not null default now(),
   primary key (workspace_id, user_id)
 );
+
+-- Workspace creator is enrolled as owner atomically; client cannot create an ownerless workspace.
+create or replace function public.enroll_workspace_owner()
+returns trigger language plpgsql security definer set search_path = ''
+as $
+begin
+  insert into public.workspace_members(workspace_id, user_id, role)
+  values (new.id, new.owner_id, 'owner')
+  on conflict (workspace_id, user_id) do nothing;
+  return new;
+end;
+$;
+
+drop trigger if exists on_workspace_created_enroll_owner on public.workspaces;
+create trigger on_workspace_created_enroll_owner
+after insert on public.workspaces for each row execute procedure public.enroll_workspace_owner();
 create index if not exists workspace_members_user_idx on public.workspace_members(user_id);
 
 create or replace function public.is_workspace_member(target_workspace uuid)
