@@ -1,48 +1,42 @@
-# MS3DPRINTING infrastructure foundation
+# MS 3D Studio — infraestrutura
 
-This repository now has the first local infrastructure scaffold. It is a development foundation, not a deployed production backend.
+Esta pasta contém a base local de desenvolvimento. Ela ainda não representa um backend publicado nem um ambiente de produção.
 
-## Local database
+## Banco local
 
-Requirements: Docker Desktop with Docker Compose.
+Requisitos: Docker Desktop com Docker Compose.
 
 ```bash
 docker compose up -d postgres
 docker compose ps
 ```
 
-PostgreSQL listens only on loopback at `127.0.0.1:54329`. The initial SQL migration is mounted into the container initialization directory and runs only when the named volume is first created.
+O PostgreSQL fica disponível somente em `127.0.0.1:54329`. As migrations em `infra/db/migrations` são executadas automaticamente apenas quando o volume nomeado é inicializado pela primeira vez. Em um banco já existente, aplique migrations novas com o futuro runner versionado; não apague o volume para simular atualização.
 
-To reset local development data (destructive):
+Para recriar os dados locais (operação destrutiva):
 
 ```bash
 docker compose down -v
 docker compose up -d postgres
 ```
 
-Copy `.env.example` to `.env` for local application configuration. Never commit `.env`, production credentials, printer access codes, or payment secrets.
+Copie `.env.example` para `.env`. Nunca versione arquivos de ambiente, credenciais de produção, códigos de acesso de impressoras ou segredos de pagamento.
 
-## Database model
+## Limites entre web e desktop
 
-The first migration creates account/workspace membership, subscriptions (1/3/6/12 months), printer inventory, provenance-aware telemetry, project metadata/files, and audit events. Project file bytes belong in object storage; the database stores object keys and metadata only.
+- A aplicação web gerencia conta, workspace, biblioteca em nuvem, relatórios e assinaturas.
+- O companion Windows gerencia descoberta LAN, credenciais locais e sessões de protocolo da impressora.
+- O navegador não deve conectar diretamente a endpoints MQTT/FTPS privados da rede local.
+- O companion envia telemetria normalizada à API somente após pareamento e autorização.
+- Dados de demonstração devem ser identificados separadamente de dados reais.
 
-The schema intentionally does not store printer access codes. `credential_reference` is an opaque pointer to a credential held by the Windows companion's OS vault, not a secret.
+## Próximas entregas de infraestrutura
 
-## Web and desktop boundary
+1. Provedor de identidade, sessões e autorização por workspace.
+2. Pool PostgreSQL, runner de migrations e camada de repositórios.
+3. Handlers de API para saúde, identidade, workspace, projetos e impressoras.
+4. Storage compatível com S3, uploads/downloads assinados e cotas.
+5. Pareamento desktop com autorização restrita por dispositivo.
+6. Checkout, webhooks e emissão server-side de licenças após definição comercial.
 
-- The hosted web app owns account, workspace, cloud library, reports and subscription views.
-- The Windows companion owns LAN discovery, local printer credentials and device protocol sessions.
-- The browser must not connect directly to private printer MQTT/FTPS endpoints.
-- The desktop companion sends normalized telemetry to the account API only after pairing and authorization.
-- Demo telemetry must remain distinguishable from real device telemetry.
-
-## Next implementation slices
-
-1. Select and configure the production identity provider and session strategy.
-2. Add a migration runner and typed database repository layer.
-3. Add API handlers for health, identity, workspace and printer metadata.
-4. Add S3-compatible object storage with signed uploads/downloads and quotas.
-5. Add desktop pairing and narrowly scoped device authorization.
-6. Add subscription provider integration only after business plans/prices and webhook environment are configured.
-
-No production database, API, object-storage bucket, authentication provider, payment provider, or cloud deployment is created by this scaffold.
+Nenhum banco de produção, API pública, bucket, provedor de autenticação, gateway de pagamento ou deployment cloud foi criado por esta base local.
