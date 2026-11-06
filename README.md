@@ -1,24 +1,27 @@
-# MS3D Print Studio
+# MS3DPRINTING
 
-ms3dprint
+A cross-platform 3D-print production platform: Windows desktop control center plus a synchronized web workspace for printer monitoring, project library, material and energy costing, production analytics, and subscription licensing.
 
-This project was built with [Lovable](https://lovable.dev).
+## Product direction
+Bambu Lab printers are the first integration target. The Windows desktop client will provide local printer connectivity and device workflows; the web client will provide account, library, reporting, subscription, and administration features.
 
-## Build with Lovable
+See:
+- [Product specification](docs/PRODUCT_SPEC.md)
+- [Technical architecture](docs/TECHNICAL_ARCHITECTURE.md)
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/4d945dc5-48da-4201-b178-09488961d0c3).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Current application
+The repository currently contains the initial React 19 + TanStack Start starter. Product modules and device integrations are being developed in milestones. Printer control, payments, MakerWorld downloads, and licensing must not be treated as production-ready until implemented and tested against real services/devices.
 
 ## Development
+Requirements: Node.js and Bun (the repository includes bun.lock).
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+```bash
+bun install
+bun run dev
+bun run lint
+bun run test
+bun run build
 ```
+
+## Security
+Never commit secrets, printer access codes, API credentials, certificates, payment keys, or .env files. Use environment variables locally and a managed secret store in deployment.
