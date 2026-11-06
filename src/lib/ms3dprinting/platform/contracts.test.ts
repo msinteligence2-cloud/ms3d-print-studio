@@ -12,7 +12,7 @@ describe("platform API contracts", () => {
     expect(
       healthResponseSchema.safeParse({
         status: "ok",
-        service: "ms3dprinting-api",
+        service: "ms-3d-studio-api",
         timestamp: "2026-11-06T00:00:00.000Z",
         checks: { database: "not_configured", objectStorage: "not_configured" },
       }).success,
