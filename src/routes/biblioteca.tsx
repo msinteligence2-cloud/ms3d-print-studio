@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Box, Download, FilePlus2, FolderOpen, Trash2 } from "lucide-react";
 import {
@@ -18,7 +19,7 @@ function LibraryPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
 
-  async function refresh() {
+  const refresh = useCallback(async () => {
     setLoading(true);
     try {
       setFiles(await listProjectFiles());
@@ -28,13 +29,13 @@ function LibraryPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     void refresh();
-  }, []);
+  }, [refresh]);
 
-  async function importFiles(event: React.ChangeEvent<HTMLInputElement>) {
+  async function importFiles(event: ChangeEvent<HTMLInputElement>) {
     const selected = Array.from(event.target.files ?? []);
     if (!selected.length) return;
     setBusy(true);
