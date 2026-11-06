@@ -36,28 +36,28 @@ function CostCalculatorPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#0b0e12] px-5 py-8 text-slate-100 md:px-10">
+    <main className="min-h-screen bg-[#202328] px-5 py-8 text-slate-100 md:px-10">
       <div className="mx-auto max-w-5xl">
-        <Link to="/" className="mb-8 inline-flex items-center gap-2 text-sm text-slate-400 hover:text-orange-300">
+        <Link to="/" className="mb-8 inline-flex items-center gap-2 text-sm text-slate-400 hover:text-red-300">
           <ArrowLeft size={16} /> Voltar ao painel
         </Link>
         <div className="mb-8 flex items-center gap-3">
-          <div className="rounded-xl bg-orange-500/10 p-3 text-orange-300"><Calculator size={24} /></div>
+          <div className="rounded-xl bg-red-500/10 p-3 text-red-300"><Calculator size={24} /></div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-300">MS3DPRINTING</p>
-            <h1 className="text-3xl font-bold">Calculadora de custos</h1>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-red-300">MS 3D STUDIO</p>
+            <h1 className="ms-display text-3xl font-bold">Calculadora de custos</h1>
             <p className="mt-1 text-sm text-slate-400">Estime filamento, energia e custo operacional por impressão.</p>
           </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <section className="rounded-2xl border border-white/10 bg-[#11161d] p-6">
+          <section className="rounded-2xl border border-white/10 bg-[#292D33] p-6">
             <h2 className="mb-5 text-base font-semibold">Parâmetros da impressão</h2>
             <div className="grid gap-5 sm:grid-cols-2">
               {fields.map((field) => (
                 <label key={field.label} className="block text-sm text-slate-300">
                   <span className="mb-2 block">{field.label}</span>
-                  <div className="flex items-center rounded-lg border border-white/10 bg-[#0b0e12] focus-within:border-orange-400/60">
+                  <div className="flex items-center rounded-lg border border-white/10 bg-[#202328] focus-within:border-red-400/60">
                     <input
                       type="number"
                       min={field.min}
@@ -73,9 +73,9 @@ function CostCalculatorPage() {
             </div>
           </section>
 
-          <section className="h-fit rounded-2xl border border-orange-400/20 bg-gradient-to-br from-orange-500/10 to-[#11161d] p-6">
+          <section className="h-fit rounded-2xl border border-red-400/20 bg-gradient-to-br from-red-500/10 to-[#11161d] p-6">
             <p className="text-sm font-medium text-slate-400">Custo estimado por impressão</p>
-            <p className="mt-2 text-4xl font-bold tracking-tight text-orange-300">{formatBRL(result.totalCost)}</p>
+            <p className="mt-2 text-4xl font-bold tracking-tight text-red-300">{formatBRL(result.totalCost)}</p>
             <div className="my-6 space-y-4">
               <CostRow label="Filamento" value={result.filamentCost} />
               <CostRow label="Energia" value={result.energyCost} />
@@ -87,7 +87,7 @@ function CostCalculatorPage() {
               </div>
             </div>
             <div className="flex gap-2 rounded-xl bg-black/20 p-3 text-xs leading-relaxed text-slate-400">
-              <Info size={16} className="mt-0.5 shrink-0 text-orange-300" />
+              <Info size={16} className="mt-0.5 shrink-0 text-red-300" />
               Energia calculada pela potência média configurada. Não é medição real da impressora. Ajuste os parâmetros para refletir sua máquina e tarifa.
             </div>
           </section>
