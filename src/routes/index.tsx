@@ -35,7 +35,7 @@ function Dashboard() {
         <aside className="hidden w-[248px] shrink-0 border-r border-white/[0.07] bg-[#0e1218] px-4 py-6 lg:flex lg:flex-col">
           <div className="mb-10 flex items-center gap-3 px-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500 text-[#111]"><Printer size={22} strokeWidth={2.5}/></div>
-            <div><div className="text-[15px] font-black tracking-[0.12em]">MS3D<span className="text-orange-400">PRINTING</span></div><div className="mt-0.5 text-[10px] tracking-[0.2em] text-slate-500">PRINT SMARTER</div></div>
+            <div><div className="text-[15px] font-black tracking-[0.12em]">MS 3D<span className="text-orange-400">Studio</span></div><div className="mt-0.5 text-[10px] tracking-[0.2em] text-slate-500">PRINT SMARTER</div></div>
           </div>
           <div className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-600">Workspace</div>
           <nav className="space-y-1">
@@ -45,7 +45,7 @@ function Dashboard() {
           <button onClick={() => setActive("Assinatura e licenças")} className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] text-slate-400 hover:bg-white/[0.04]"><ShieldCheck size={17}/> Assinatura e licenças</button>
           <button onClick={() => setActive("Configurações")} className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] text-slate-400 hover:bg-white/[0.04]"><Settings2 size={17}/> Configurações</button>
           <div className="mt-auto rounded-2xl border border-orange-400/15 bg-gradient-to-br from-orange-500/10 to-transparent p-4">
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-orange-300"><Zap size={14}/> MS3D PRO</div>
+            <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-orange-300"><Zap size={14}/> MS 3D PRO</div>
             <p className="text-[11px] leading-relaxed text-slate-400">Desbloqueie sua produção com ferramentas profissionais.</p>
             <button onClick={() => setActive("Assinatura e licenças")} className="mt-3 flex w-full items-center justify-between rounded-lg bg-orange-500 px-3 py-2 text-[11px] font-bold text-[#17120e]">Conhecer planos <ChevronRight size={14}/></button>
           </div>
@@ -107,7 +107,7 @@ function Dashboard() {
               <QuickLink icon={Search} title="Explorar MakerWorld" description="Encontre novos projetos para imprimir" onClick={()=>setActive("Explorar projetos")}/>
               <QuickLink icon={Gauge} title="Calculadora de custos" description="Simule material, energia e tempo" onClick={()=>setActive("Custos e relatórios")}/>
             </div>
-            <footer className="mt-8 flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] pt-5 text-[9px] text-slate-600"><span>MS3DPRINTING · Plataforma de gestão de impressão 3D</span><span className="flex items-center gap-1.5"><Wifi size={11}/> Ambiente de demonstração</span></footer>
+            <footer className="mt-8 flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] pt-5 text-[9px] text-slate-600"><span>MS 3D Studio · Plataforma de gestão de impressão 3D</span><span className="flex items-center gap-1.5"><Wifi size={11}/> Ambiente de demonstração</span></footer>
           </div>
         </section>
       </div>
