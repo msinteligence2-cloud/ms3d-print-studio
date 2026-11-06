@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Activity, Bell, Boxes, ChevronRight, CircleDollarSign, Clock3, Download,
   FileBox, Gauge, Layers3, LayoutDashboard, Library, Menu,
@@ -63,7 +63,7 @@ function Dashboard() {
           <div className="mx-auto max-w-[1500px] p-5 md:p-8">
             <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
               <div><div className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-orange-400"><Activity size={13}/> Central de produção</div><h1 className="text-2xl font-bold tracking-tight md:text-[30px]">Visão geral<span className="text-orange-400">.</span></h1><p className="mt-1 text-xs text-slate-500">Acompanhe sua oficina, custos e impressões em um só lugar.</p></div>
-              <div className="flex gap-2"><button className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2.5 text-xs text-slate-300 hover:bg-white/[0.04]"><Download size={14}/> Exportar</button><button onClick={() => setActive("Impressoras")} className="flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2.5 text-xs font-bold text-[#17120e] hover:bg-orange-400"><Plus size={15}/> Adicionar impressora</button></div>
+              <div className="flex gap-2"><Link to="/calculadora" className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2.5 text-xs text-slate-300 hover:bg-white/[0.04]"><CircleDollarSign size={14}/> Calcular custo</Link><button className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2.5 text-xs text-slate-300 hover:bg-white/[0.04]"><Download size={14}/> Exportar</button><button onClick={() => setActive("Impressoras")} className="flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2.5 text-xs font-bold text-[#17120e] hover:bg-orange-400"><Plus size={15}/> Adicionar impressora</button></div>
             </div>
 
             <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
