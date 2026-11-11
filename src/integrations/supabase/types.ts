@@ -1170,6 +1170,47 @@ export type Database = {
           },
         ]
       }
+      workspace_invites: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          created_at: string
+          email: string
+          id: string
+          invited_by: string
+          role: string
+          workspace_id: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          invited_by: string
+          role: string
+          workspace_id: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          invited_by?: string
+          role?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_invites_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workspace_members: {
         Row: {
           created_at: string
@@ -1260,6 +1301,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      accept_my_invites: { Args: never; Returns: number }
       can_access_request_object: {
         Args: { _name: string; _write: boolean }
         Returns: boolean
@@ -1269,6 +1311,7 @@ export type Database = {
         Returns: undefined
       }
       cancel_my_subscription: { Args: { _sub: string }; Returns: undefined }
+      cancel_workspace_invite: { Args: { _invite: string }; Returns: undefined }
       create_my_workspace: { Args: { workspace_name: string }; Returns: string }
       create_quote: {
         Args: {
@@ -1293,6 +1336,10 @@ export type Database = {
         Args: { _approve: boolean; _note?: string; _quote: string }
         Returns: undefined
       }
+      grant_workspace_access: {
+        Args: { _email: string; _role: string; _workspace: string }
+        Returns: string
+      }
       has_workspace_role: {
         Args: { allowed_roles: string[]; target_workspace: string }
         Returns: boolean
@@ -1314,6 +1361,15 @@ export type Database = {
           name: string
         }[]
       }
+      my_staff_workspaces: {
+        Args: never
+        Returns: {
+          accepts_customers: boolean
+          id: string
+          name: string
+          role: string
+        }[]
+      }
       owns_request: { Args: { _request: string }; Returns: boolean }
       register_request_file: {
         Args: {
@@ -1330,8 +1386,21 @@ export type Database = {
         Args: { _from: string; _to: string }
         Returns: boolean
       }
+      revoke_workspace_access: {
+        Args: { _user: string; _workspace: string }
+        Returns: undefined
+      }
       safe_ws_from_path: { Args: { _name: string }; Returns: string }
       set_customer_suspended: {
+        Args: {
+          _reason?: string
+          _suspend: boolean
+          _user: string
+          _workspace: string
+        }
+        Returns: undefined
+      }
+      set_member_suspended: {
         Args: {
           _reason?: string
           _suspend: boolean
@@ -1399,6 +1468,17 @@ export type Database = {
         Returns: {
           display_name: string
           role: string
+          user_id: string
+        }[]
+      }
+      workspace_access_list: {
+        Args: { _workspace: string }
+        Returns: {
+          display_name: string
+          email: string
+          joined_at: string
+          role: string
+          suspended_at: string
           user_id: string
         }[]
       }
