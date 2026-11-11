@@ -81,7 +81,7 @@ function Explore() {
 
 function Plans() {
   const [plan, setPlan] = useState("Demonstração");
-  return <div className="grid gap-4 md:grid-cols-3">{[["Demonstração","Grátis"],["Maker","R$ 29/mês"],["Pro","R$ 79/mês"]].map(([n,p])=><div key={n} className={`${card} ${plan===n?"ring-1 ring-red-400/40":""}`}>
+  return <div className="grid gap-4 md:grid-cols-3">{([["Demonstração","Grátis"],["Maker","R$ 29/mês"],["Pro","R$ 79/mês"]] as const).map(([n,p])=><div key={n} className={`${card} ${plan===n?"ring-1 ring-red-400/40":""}`}>
     <div className="text-sm font-semibold">{n}</div><div className="my-3 text-2xl font-bold">{p}</div>
     <button onClick={()=>setPlan(n)} className={plan===n?"text-xs text-emerald-300":btn}>{plan===n?"Plano atual":"Selecionar"}</button>
   </div>)}<p className="text-[11px] text-slate-500 md:col-span-3">Valores ilustrativos — pagamento ainda não conectado.</p></div>;
