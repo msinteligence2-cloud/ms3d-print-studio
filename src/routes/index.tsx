@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SectionView } from "@/components/dashboard/SectionView";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Activity, Bell, Boxes, ChevronRight, CircleDollarSign, Clock3, Download,
@@ -42,8 +43,8 @@ function Dashboard() {
             {navItems.map(({ label, icon: Icon }) => <button key={label} onClick={() => setActive(label)} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] transition ${active === label ? "bg-red-500/10 font-semibold text-red-300 ring-1 ring-red-400/20" : "text-slate-400 hover:bg-white/[0.04] hover:text-white"}`}><Icon size={17}/>{label}{label === "Explorar projetos" && <span className="ml-auto rounded-md bg-white/[0.07] px-1.5 py-0.5 text-[9px] text-slate-400">NOVO</span>}</button>)}
           </nav>
           <div className="mb-3 mt-9 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-600">Sistema</div>
-          <button onClick={() => setActive("Assinatura e licenças")} className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] text-slate-400 hover:bg-white/[0.04]"><ShieldCheck size={17}/> Assinatura e licenças</button>
-          <button onClick={() => setActive("Configurações")} className="flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] text-slate-400 hover:bg-white/[0.04]"><Settings2 size={17}/> Configurações</button>
+          <button onClick={() => setActive("Assinatura e licenças")} className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] hover:bg-white/[0.04] ${active==="Assinatura e licenças"?"text-red-300":"text-slate-400"}`}><ShieldCheck size={17}/> Assinatura e licenças</button>
+          <button onClick={() => setActive("Configurações")} className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left text-[13px] hover:bg-white/[0.04] ${active==="Configurações"?"text-red-300":"text-slate-400"}`}><Settings2 size={17}/> Configurações</button>
           <div className="mt-auto rounded-2xl border border-red-400/15 bg-gradient-to-br from-red-500/10 to-transparent p-4">
             <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-red-300"><Zap size={14}/> MS 3D PRO</div>
             <p className="text-[11px] leading-relaxed text-slate-400">Desbloqueie sua produção com ferramentas profissionais.</p>
@@ -60,7 +61,7 @@ function Dashboard() {
             <div className="flex items-center gap-3"><div className="hidden items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-3 py-1.5 text-[10px] font-medium text-emerald-300 sm:flex"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400"/> Sistema operacional</div><button className="relative rounded-xl border border-white/[0.08] p-2 text-slate-400"><Bell size={17}/><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#ed1018]"/></button><div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0750a6]/25 text-[11px] font-bold text-blue-200">MS</div></div>
           </header>
 
-          <div className="mx-auto max-w-[1500px] p-5 md:p-8">
+          <div className="mx-auto max-w-[1500px] p-5 md:p-8"><div className="mb-5 flex gap-2 overflow-x-auto lg:hidden">{[...navItems.map(n=>n.label),"Assinatura e licenças","Configurações"].map(l=><button key={l} onClick={()=>setActive(l)} className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] ${active===l?"bg-red-500/15 text-red-300":"bg-white/5 text-slate-400"}`}>{l}</button>)}</div>{active !== "Visão geral" ? <SectionView active={active} onBack={()=>setActive("Visão geral")}/> : <>
             <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
               <div><div className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-red-400"><Activity size={13}/> Central de produção</div><h1 className="text-2xl font-bold tracking-tight md:text-[30px]">Visão geral<span className="text-red-400">.</span></h1><p className="mt-1 text-xs text-slate-500">Acompanhe sua oficina, custos e impressões em um só lugar.</p></div>
               <div className="flex gap-2"><Link to="/biblioteca" className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2.5 text-xs text-slate-300 hover:bg-white/[0.04]"><Library size={14}/> Biblioteca</Link><Link to="/calculadora" className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2.5 text-xs text-slate-300 hover:bg-white/[0.04]"><CircleDollarSign size={14}/> Calcular custo</Link><button className="flex items-center gap-2 rounded-xl border border-white/10 px-3 py-2.5 text-xs text-slate-300 hover:bg-white/[0.04]"><Download size={14}/> Exportar</button><button onClick={() => setActive("Impressoras")} className="flex items-center gap-2 rounded-xl bg-[#ed1018] px-4 py-2.5 text-xs font-bold text-white hover:bg-red-400"><Plus size={15}/> Adicionar impressora</button></div>
@@ -107,6 +108,7 @@ function Dashboard() {
               <QuickLink icon={Search} title="Explorar MakerWorld" description="Encontre novos projetos para imprimir" onClick={()=>setActive("Explorar projetos")}/>
               <QuickLink icon={Gauge} title="Calculadora de custos" description="Simule material, energia e tempo" onClick={()=>setActive("Custos e relatórios")}/>
             </div>
+            </>}
             <footer className="mt-8 flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] pt-5 text-[9px] text-slate-600"><span>MS 3D Studio · Plataforma de gestão de impressão 3D</span><span className="flex items-center gap-1.5"><Wifi size={11}/> Ambiente de demonstração</span></footer>
           </div>
         </section>
